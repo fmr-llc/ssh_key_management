@@ -1,0 +1,9 @@
+- if user_signed_in?
+  = link_to "Logout #{current_user.username}",
+            destroy_user_session_path,
+            method: :delete,
+            class: 'btn btn-warning pull-right'
+- else
+  = link_to 'Login',
+            new_user_session_path,
+            class: 'btn btn-success pull-right'

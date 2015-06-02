@@ -1,0 +1,17 @@
+AllCops:
+  Include:
+    - '**/Rakefile'
+    - 'config.ru'
+  Exclude:
+    - 'db/schema.rb'
+    - 'bin/**/*'
+    - 'vendor/**/*'
+
+  # Configuration parameters: AllowURI, URISchemes.
+
+Metrics/LineLength:
+  Max: 110
+
+# add documention XXX
+#Style/Documentation:
+#  Enabled: false

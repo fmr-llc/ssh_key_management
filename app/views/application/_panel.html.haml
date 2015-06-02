@@ -1,0 +1,6 @@
+- type ||= 'default'
+.panel{ id: id, class: "panel-#{type}" }
+  .panel-heading
+    %h2.panel-title= title
+  .panel-body
+    = yield

@@ -1,0 +1,89 @@
+// Setup page-level styles
+html, footer
+  background-color: #ccc
+body
+  background-color: #fff
+footer
+  margin-top: 20px
+  padding-top: 19px
+  padding-bottom: 20px
+  color: #888
+  border-top: 1px solid #e5e5e5
+  p
+    margin-bottom: 0
+  a:link, a:visited, a:hover, a:active
+    color: #444
+
+#flash-message
+  position: fixed
+  top: 30px
+  width: 100%
+  padding: 0 10%
+  z-index: 100
+  .alert
+    box-shadow: 0 10px 10px #ccc
+
+#login-panel
+  margin: 2em 0
+
+.ssh-key
+  font-family: monospace
+  cursor: pointer
+  &:hover
+    text-decoration: underline
+
+table.dataTable
+  th, td
+    white-space: nowrap
+
+.dataTables_filter input[type="search"]
+  margin-left: 0
+
+.spinner
+  background-image: image_url('ajax-loader.gif')
+  background-repeat: no-repeat
+  width: 16px
+  height: 11px
+  margin: 0 4px
+  display: inline-block
+
+.dropdown-menu > .disabled
+  cursor: not-allowed
+
+.dropdown-menu > .disabled > a
+  pointer-events: none
+
+.icon-with-text
+  .glyphicon
+    margin-right: 4px
+
+.zeroclipboard-is-hover
+  background-color: #e6e6e6
+  border-color: #adadad
+  color: #333
+
+// status area
+#status-area
+  background-color: #f0f0f0
+  padding: 10px 0
+  margin-bottom: 20px
+  border-top: 1px solid #e8e8e8
+  border-bottom: 1px solid #e8e8e8
+  p.h3
+    margin-top: 0
+
+// Toolbar
+#toolbar
+  &.affix
+    position: fixed
+    right: 0
+    left: 0
+    z-index: 1030
+    bottom: 0
+    padding: 15px
+    background-color: #fff
+    box-shadow: 0 0 10px #666
+  &.affix-bottom
+    position: relative
+    top: 0 !important
+    bottom: 0 !important

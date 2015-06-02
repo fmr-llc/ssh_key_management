@@ -1,0 +1,6 @@
+# --- <%= Rails.env %> mode
+# --- <%= `hostname`.chomp %>
+# --- cache: <%= @cached ? 'hit' : 'miss' %>
+# --- response: <%= Time.zone.now - @start_time %>s
+# --- keys: <%= @authorized_keys.count %>
+<%= @authorized_keys * "\n" %>

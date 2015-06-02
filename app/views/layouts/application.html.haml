@@ -1,0 +1,17 @@
+!!!
+%html
+  %head
+    %meta{ 'http-equiv' => 'X-UA-Compatible', content: 'IE=edge' }
+    %title= Rails.application.class.parent_name.titleize
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+    -# /[if lt IE 9]
+      = javascript_include_tag 'html5shiv', 'respond'
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+    #flash-message= render 'flash_messages'
+    .spinner.invisible.hidden
+    = render 'header'
+    .container-fluid
+      = yield
+    = render 'footer'

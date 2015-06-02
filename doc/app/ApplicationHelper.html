@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>module ApplicationHelper - Rails Application Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="module">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-action_dropdown_btn_for">#action_dropdown_btn_for</a>
+    
+    <li ><a href="#method-i-bs_alert">#bs_alert</a>
+    
+    <li ><a href="#method-i-bs_icon">#bs_icon</a>
+    
+    <li ><a href="#method-i-bs_icon_and_text">#bs_icon_and_text</a>
+    
+    <li ><a href="#method-i-crud_btns_for">#crud_btns_for</a>
+    
+    <li ><a href="#method-i-destroy_link_for">#destroy_link_for</a>
+    
+    <li ><a href="#method-i-dropdown_button_with_text">#dropdown_button_with_text</a>
+    
+    <li ><a href="#method-i-dtg_span">#dtg_span</a>
+    
+    <li ><a href="#method-i-edit_link_for">#edit_link_for</a>
+    
+    <li ><a href="#method-i-field_with_value">#field_with_value</a>
+    
+    <li ><a href="#method-i-mail_to_user">#mail_to_user</a>
+    
+    <li ><a href="#method-i-show_link_for">#show_link_for</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="module-ApplicationHelper">
+  <h1 id="module-ApplicationHelper" class="module">
+    module ApplicationHelper
+  </h1>
+
+  <section class="description">
+    
+<p>Global helper methods for all controller</p>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <section class="constants-list">
+      <header>
+        <h3>Constants</h3>
+      </header>
+      <dl>
+      
+        <dt id="ICON_ONLY">ICON_ONLY
+        
+        <dd>
+        
+      
+        <dt id="SHOW_LINK_IN_CRUD">SHOW_LINK_IN_CRUD
+        
+        <dd>
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-action_dropdown_btn_for" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">action_dropdown_btn_for</span><span
+            class="method-args">(object, css_classes = nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="action_dropdown_btn_for-source">
+            <pre><span class="ruby-comment"># File app/helpers/application_helper.rb, line 36</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">action_dropdown_btn_for</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">css_classes</span> = <span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">content_tag</span> <span class="ruby-value">:div</span>, <span class="ruby-identifier">class</span><span class="ruby-operator">:</span> [<span class="ruby-operator">*</span><span class="ruby-identifier">css_classes</span>].<span class="ruby-identifier">push</span>(<span class="ruby-value">:dropdown</span>) <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">dropdown_button_with_text</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">content_tag</span>(<span class="ruby-value">:ul</span>, <span class="ruby-identifier">class</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;dropdown-menu dropdown-menu-right&#39;</span>) <span class="ruby-keyword">do</span>
+      <span class="ruby-identifier">concat</span> <span class="ruby-identifier">content_tag</span>(<span class="ruby-value">:li</span>, <span class="ruby-identifier">show_link_for</span>(<span class="ruby-identifier">object</span>)) <span class="ruby-keyword">if</span> <span class="ruby-constant">SHOW_LINK_IN_CRUD</span>
+      <span class="ruby-identifier">concat</span> <span class="ruby-identifier">content_tag</span>(<span class="ruby-value">:li</span>, <span class="ruby-identifier">edit_link_for</span>(<span class="ruby-identifier">object</span>))
+      <span class="ruby-identifier">concat</span> <span class="ruby-identifier">content_tag</span>(<span class="ruby-value">:li</span>, <span class="ruby-identifier">destroy_link_for</span>(<span class="ruby-identifier">object</span>, <span class="ruby-string">&#39;bg-danger&#39;</span>))
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-bs_alert" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">bs_alert</span><span
+            class="method-args">(kind = 'success', columns = 4, &block)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="bs_alert-source">
+            <pre><span class="ruby-comment"># File app/helpers/application_helper.rb, line 83</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">bs_alert</span>(<span class="ruby-identifier">kind</span> = <span class="ruby-string">&#39;success&#39;</span>, <span class="ruby-identifier">columns</span> = <span class="ruby-value">4</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-identifier">kind</span> = <span class="ruby-string">&#39;success&#39;</span> <span class="ruby-keyword">unless</span> <span class="ruby-node">%w(success info warning danger)</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">kind</span>)
+  <span class="ruby-identifier">columns</span> = <span class="ruby-value">12</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">columns</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">columns</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">12</span>
+  <span class="ruby-identifier">css_alert_classes</span> = <span class="ruby-node">&quot;alert alert-#{kind} alert-dismissible&quot;</span>
+  <span class="ruby-identifier">css_text_classes</span>  = <span class="ruby-string">&#39;text-info text-center&#39;</span>
+  <span class="ruby-identifier">css_col_classes</span>   = <span class="ruby-node">&quot;col-md-#{columns} col-md-offset-#{(12 - columns) / 2}&quot;</span>
+
+  <span class="ruby-identifier">content_tag</span>(<span class="ruby-value">:div</span>, <span class="ruby-identifier">class</span><span class="ruby-operator">:</span> [<span class="ruby-identifier">css_alert_classes</span>, <span class="ruby-identifier">css_text_classes</span>, <span class="ruby-identifier">css_col_classes</span>]) <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">content_tag</span>(<span class="ruby-value">:button</span>, <span class="ruby-identifier">type</span><span class="ruby-operator">:</span> <span class="ruby-value">:button</span>, <span class="ruby-identifier">class</span><span class="ruby-operator">:</span> <span class="ruby-value">:close</span>, <span class="ruby-string">&#39;data-dismiss&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:alert</span>) <span class="ruby-keyword">do</span>
+      <span class="ruby-identifier">content_tag</span>(<span class="ruby-value">:span</span>, <span class="ruby-string">&#39;&amp;times&#39;</span>.<span class="ruby-identifier">html_safe</span>)
+    <span class="ruby-keyword">end</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">content_tag</span>(<span class="ruby-value">:div</span>, <span class="ruby-identifier">capture</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>))
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-bs_icon" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">bs_icon</span><span
+            class="method-args">(icon)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="bs_icon-source">
+            <pre><span class="ruby-comment"># File app/helpers/application_helper.rb, line 6</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">bs_icon</span>(<span class="ruby-identifier">icon</span>)
+  <span class="ruby-identifier">content_tag</span>(<span class="ruby-value">:span</span>, <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">class</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;glyphicon glyphicon-#{icon}&quot;</span>, <span class="ruby-string">&#39;aria-hidden&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-bs_icon_and_text" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">bs_icon_and_text</span><span
+            class="method-args">(icon, text = nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="bs_icon_and_text-source">
+            <pre><span class="ruby-comment"># File app/helpers/application_helper.rb, line 10</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">bs_icon_and_text</span>(<span class="ruby-identifier">icon</span>, <span class="ruby-identifier">text</span> = <span class="ruby-keyword">nil</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">text</span>
+    <span class="ruby-identifier">content_tag</span> <span class="ruby-value">:span</span>, <span class="ruby-identifier">class</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;icon-with-text&#39;</span> <span class="ruby-keyword">do</span>
+      <span class="ruby-identifier">bs_icon</span>(<span class="ruby-identifier">icon</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">text</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">bs_icon</span>(<span class="ruby-identifier">icon</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">text</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-crud_btns_for" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">crud_btns_for</span><span
+            class="method-args">(object, group = true)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="crud_btns_for-source">
+            <pre><span class="ruby-comment"># File app/helpers/application_helper.rb, line 20</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">crud_btns_for</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">group</span> = <span class="ruby-keyword">true</span>)
+  <span class="ruby-identifier">css_class</span> = <span class="ruby-string">&#39;btn-group&#39;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">group</span>
+  <span class="ruby-identifier">content_tag</span> <span class="ruby-value">:div</span>, <span class="ruby-identifier">class</span><span class="ruby-operator">:</span> <span class="ruby-identifier">css_class</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">concat</span> <span class="ruby-identifier">show_link_for</span>(<span class="ruby-identifier">object</span>, <span class="ruby-string">&#39;btn btn-default&#39;</span>) <span class="ruby-keyword">if</span> <span class="ruby-constant">SHOW_LINK_IN_CRUD</span>
+    <span class="ruby-identifier">concat</span> <span class="ruby-identifier">edit_link_for</span>(<span class="ruby-identifier">object</span>, <span class="ruby-string">&#39;btn btn-default&#39;</span>)
+    <span class="ruby-identifier">concat</span> <span class="ruby-identifier">destroy_link_for</span>(<span class="ruby-identifier">object</span>, <span class="ruby-string">&#39;btn btn-danger&#39;</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-destroy_link_for" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">destroy_link_for</span><span
+            class="method-args">(object, css_class = nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="destroy_link_for-source">
+            <pre><span class="ruby-comment"># File app/helpers/application_helper.rb, line 69</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy_link_for</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">css_class</span> = <span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">text</span> = <span class="ruby-constant">ICON_ONLY</span> <span class="ruby-operator">?</span> <span class="ruby-keyword">nil</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">t</span>(<span class="ruby-value">:&#39;helpers.links.destroy&#39;</span>, <span class="ruby-identifier">default</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Destroy&#39;</span>)
+  <span class="ruby-identifier">link_to</span> <span class="ruby-identifier">bs_icon_and_text</span>(<span class="ruby-string">&#39;trash&#39;</span>, <span class="ruby-identifier">text</span>),
+          <span class="ruby-identifier">object</span>,
+          <span class="ruby-identifier">method</span><span class="ruby-operator">:</span> <span class="ruby-value">:delete</span>,
+          <span class="ruby-identifier">remote</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>,
+          <span class="ruby-identifier">class</span><span class="ruby-operator">:</span>  [<span class="ruby-operator">*</span><span class="ruby-identifier">css_class</span>].<span class="ruby-identifier">push</span>(<span class="ruby-string">&#39;destroy-link&#39;</span>),
+          <span class="ruby-identifier">data</span><span class="ruby-operator">:</span> { <span class="ruby-identifier">confirm</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Are you sure?&#39;</span> }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-dropdown_button_with_text" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">dropdown_button_with_text</span><span
+            class="method-args">(text = nil, button_type = 'default')</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="dropdown_button_with_text-source">
+            <pre><span class="ruby-comment"># File app/helpers/application_helper.rb, line 46</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">dropdown_button_with_text</span>(<span class="ruby-identifier">text</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">button_type</span> = <span class="ruby-string">&#39;default&#39;</span>)
+  <span class="ruby-identifier">button_text</span> = <span class="ruby-identifier">text</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">content_tag</span>(<span class="ruby-value">:span</span>, <span class="ruby-identifier">text</span> <span class="ruby-operator">+</span> <span class="ruby-string">&#39; &#39;</span>) <span class="ruby-operator">:</span> <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-identifier">content_tag</span>(<span class="ruby-value">:button</span>, <span class="ruby-identifier">class</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;btn btn-#{button_type} dropdown-toggle&quot;</span>,  <span class="ruby-identifier">data</span><span class="ruby-operator">:</span> { <span class="ruby-identifier">toggle</span><span class="ruby-operator">:</span> <span class="ruby-value">:dropdown</span> }) <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">button_text</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">content_tag</span>(<span class="ruby-value">:span</span>, <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">class</span><span class="ruby-operator">:</span> <span class="ruby-value">:caret</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-dtg_span" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">dtg_span</span><span
+            class="method-args">(time)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="dtg_span-source">
+            <pre><span class="ruby-comment"># File app/helpers/application_helper.rb, line 97</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">dtg_span</span>(<span class="ruby-identifier">time</span>)
+  <span class="ruby-identifier">content_tag</span>(<span class="ruby-value">:span</span>, <span class="ruby-identifier">time</span>, <span class="ruby-identifier">class</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;datetimegroup&#39;</span>, <span class="ruby-identifier">data</span><span class="ruby-operator">:</span> { <span class="ruby-identifier">order</span><span class="ruby-operator">:</span> <span class="ruby-identifier">time</span>.<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">time</span><span class="ruby-operator">:</span> <span class="ruby-identifier">time</span>.<span class="ruby-identifier">iso8601</span> })
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-edit_link_for" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">edit_link_for</span><span
+            class="method-args">(object, css_class = nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="edit_link_for-source">
+            <pre><span class="ruby-comment"># File app/helpers/application_helper.rb, line 61</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">edit_link_for</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">css_class</span> = <span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">text</span> = <span class="ruby-constant">ICON_ONLY</span> <span class="ruby-operator">?</span> <span class="ruby-keyword">nil</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">t</span>(<span class="ruby-value">:&#39;helpers.links.edit&#39;</span>, <span class="ruby-identifier">default</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Edit&#39;</span>)
+  <span class="ruby-identifier">link_to</span> <span class="ruby-identifier">bs_icon_and_text</span>(<span class="ruby-string">&#39;pencil&#39;</span>, <span class="ruby-identifier">text</span>),
+          [<span class="ruby-value">:edit</span>, <span class="ruby-identifier">object</span>],
+          <span class="ruby-identifier">remote</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>,
+          <span class="ruby-identifier">class</span><span class="ruby-operator">:</span> [<span class="ruby-operator">*</span><span class="ruby-identifier">css_class</span>].<span class="ruby-identifier">push</span>(<span class="ruby-string">&#39;edit-link&#39;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-field_with_value" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">field_with_value</span><span
+            class="method-args">(field_name, value, size = 'md')</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="field_with_value-source">
+            <pre><span class="ruby-comment"># File app/helpers/application_helper.rb, line 29</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">field_with_value</span>(<span class="ruby-identifier">field_name</span>, <span class="ruby-identifier">value</span>, <span class="ruby-identifier">size</span> = <span class="ruby-string">&#39;md&#39;</span>)
+  <span class="ruby-identifier">content_tag</span> <span class="ruby-value">:div</span>, <span class="ruby-identifier">class</span><span class="ruby-operator">:</span> <span class="ruby-value">:row</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">concat</span> <span class="ruby-identifier">content_tag</span>(<span class="ruby-value">:div</span>, <span class="ruby-identifier">content_tag</span>(<span class="ruby-value">:strong</span>, <span class="ruby-identifier">field_name</span>), <span class="ruby-identifier">class</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;col-#{size}-2 text-right&quot;</span>)
+    <span class="ruby-identifier">concat</span> <span class="ruby-identifier">content_tag</span>(<span class="ruby-value">:div</span>, <span class="ruby-identifier">value</span>, <span class="ruby-identifier">class</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;col-#{size}-4&quot;</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-mail_to_user" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">mail_to_user</span><span
+            class="method-args">(user)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="mail_to_user-source">
+            <pre><span class="ruby-comment"># File app/helpers/application_helper.rb, line 79</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">mail_to_user</span>(<span class="ruby-identifier">user</span>)
+  <span class="ruby-identifier">mail_to</span>(<span class="ruby-identifier">user</span>.<span class="ruby-identifier">mail</span>, <span class="ruby-identifier">user</span>.<span class="ruby-identifier">full_name</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-show_link_for" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">show_link_for</span><span
+            class="method-args">(object, css_class = nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="show_link_for-source">
+            <pre><span class="ruby-comment"># File app/helpers/application_helper.rb, line 53</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">show_link_for</span>(<span class="ruby-identifier">object</span>, <span class="ruby-identifier">css_class</span> = <span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">text</span> = <span class="ruby-constant">ICON_ONLY</span> <span class="ruby-operator">?</span> <span class="ruby-keyword">nil</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">t</span>(<span class="ruby-value">:&#39;helpers.links.show&#39;</span>, <span class="ruby-identifier">default</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Show&#39;</span>)
+  <span class="ruby-identifier">link_to</span> <span class="ruby-identifier">bs_icon_and_text</span>(<span class="ruby-string">&#39;sunglasses&#39;</span>, <span class="ruby-identifier">text</span>),
+          <span class="ruby-identifier">object</span>,
+          <span class="ruby-identifier">remote</span><span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>,
+          <span class="ruby-identifier">class</span><span class="ruby-operator">:</span>  [<span class="ruby-operator">*</span><span class="ruby-identifier">css_class</span>].<span class="ruby-identifier">push</span>(<span class="ruby-string">&#39;show-link&#39;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

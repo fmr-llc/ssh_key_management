@@ -1,0 +1,11 @@
+.modal.fade{ role: :dialog, tabindex: '-1', id: id }
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{ type: :button, data: { dismiss: :modal } } &times;
+        %h4.modal-title= title
+      .modal-body
+        = yield
+      - if footer
+        .modal-footer
+          %button.btn.btn-warning{ type: :button, data: { dismiss: :modal } } Cancel

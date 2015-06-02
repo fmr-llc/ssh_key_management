@@ -1,0 +1,10 @@
+- if notice
+  = bs_alert('info') do
+    %span.glyphicon.glyphicon.glyphicon-info-sign{ 'aria-hidden' => :true }
+    %strong Notice:
+    = notice
+- if alert
+  = bs_alert('danger') do
+    %span.glyphicon.glyphicon.glyphicon-alert{ 'aria-hidden' => :true }
+    %strong Error!
+    = alert

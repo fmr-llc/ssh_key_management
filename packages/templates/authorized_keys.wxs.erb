@@ -1,0 +1,53 @@
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="<%= SecureRandom.uuid %>"
+           UpgradeCode="C440D5DE-1942-474A-B5DB-CE128A2D7004"
+           Name="<%= @options[:name] %>"
+           Manufacturer="<%= @options[:maintainer] %>"
+           Language="1033"
+           Codepage='1252'
+           Version='<%= @options[:version] %>'>
+
+    <Package Id="*"
+             InstallerVersion="200"
+             Compressed="yes"
+             InstallScope="perMachine"
+             InstallPrivileges="elevated"
+             Comments="Authorized Keys Download Package"/>
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id='ProgramFilesFolder' Name='PFiles'>
+        <Directory Id='Comapany' Name='<%= @options[:maintainer] %>'>
+          <Directory Id='INSTALLDIR' Name='Scripts'>
+            <Component Id="POWERSHELLSCRIPT" Guid="2F9348BA-73E3-4CA9-9FD0-5D0FBC1102EB">
+              <File Id="AuthorizedKeysPS1" Name="authorized_keys_task.ps1" Source="<%= AUTHORIZED_KEYS_TASK_PS1 %>" KeyPath="yes"/>
+            </Component>
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id='Complete' Level='1'>
+      <ComponentRef Id='POWERSHELLSCRIPT' />
+    </Feature>
+
+    <CustomAction Id="DeleteScheduledTask"
+                  Return="check"
+                  Impersonate="no"
+                  Execute="deferred"
+                  Directory="TARGETDIR"
+                  ExeCommand="[SystemFolder]SCHTASKS.EXE /DELETE /TN &quot;<%= @options[:name].titleize %>&quot; /F" />
+
+    <CustomAction Id="CreateScheduledTask"
+                  Return="ignore"
+                  Impersonate="no"
+                  Execute="deferred"
+                  Directory="TARGETDIR"
+                  ExeCommand="[SystemFolder]SCHTASKS.EXE /CREATE /SC MINUTE /MO 15 /TN &quot;<%= @options[:name].titleize %>&quot;  /TR &quot;Powershell -file '[#AuthorizedKeysPS1]'&quot; /RU &quot;NT Authority\System&quot; /RP /F" />
+
+    <InstallExecuteSequence>
+      <Custom Action='DeleteScheduledTask' Before="CreateScheduledTask">REMOVE="ALL"</Custom>
+      <Custom Action='CreateScheduledTask' Before="InstallFinalize">(NOT Installed) OR UPGRADINGPRODUCTCODE</Custom>
+    </InstallExecuteSequence>
+    <Media Id='1' Cabinet='AuthorizedKeys.cab' EmbedCab='yes' />
+  </Product>
+</Wix>

@@ -1,0 +1,25 @@
+%footer
+  .container-fluid
+    .row
+      .col-lg-6.col-md-6.col-sm-6
+        - if ENV['COPYRIGHT_NOTICE']
+          %p
+            &copy; 2014 &ndash;
+            = Time.now.year
+            = ENV['COPYRIGHT_NOTICE']
+      .col-lg-6.col-md-6.col-sm-6
+        %p.text-right
+          - if ENV['INFO_SECURITY_LEVEL'] && ENV['INFO_SECURITY_URL']
+            %p
+              Information Security:
+              = link_to ENV['INFO_SECURITY_LEVEL'], ENV['INFO_SECURITY_URL']
+          %p
+            %span
+              %b Version:
+              v#{SSHKeyManager::Application::VERSION}
+            - if ENV['BUILD_NUMBER']
+              \/
+              = bold_field('Build: ', "##{ENV['BUILD_NUMBER']}")
+          %p
+            - cache 'revision' do
+              = capistrano_deployment_revision

@@ -1,0 +1,90 @@
+$green: #e0f0d0
+$dark-green: #206800
+
+.navbar
+  border-radius: 0
+
+.navbar-inverse
+  background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #307800 0px, #408800 25%) repeat scroll 0 0
+  border-color: $dark-green
+
+.navbar-inverse .navbar-brand
+  padding: 5px 15px
+
+.navbar-brand
+  font-size: 24px
+  font-variant: small-caps
+  img
+    display: inline-block
+
+.navbar-nav > li > a.gravatar
+  padding: 5px 15px
+
+.navbar-inverse .navbar-nav > li > a
+  color: $green
+  &:hover, &:focus
+    background-color: transparent
+    color: #fff
+
+.navbar-inverse .navbar-nav >
+  .open > a
+    background-color: $dark-green
+    color: #fff
+    &:hover, &:focus
+      background-color: $dark-green
+      color: #fff
+  .active > a
+    background-color: $dark-green
+    color: #fff
+    &:hover, &:focus
+      background-color: $dark-green
+      color: #fff
+
+.popover
+  max-width: 600px
+
+.modal-body .modal-footer
+  margin: 0px -15px -15px
+
+#credential-table
+  .progress
+    margin-bottom: 0
+    height: $padding-xs-vertical + $padding-base-vertical
+    .progress-bar
+      line-height: $padding-xs-vertical + $padding-base-vertical
+      text-shadow: 0px 1px 0px rgba(255,255,255,.3), 0px -1px 0px rgba(0,0,0,.7)
+    .progress-bar-danger
+      color: $state-danger-text
+    .progress-bar-warning
+      color: $state-warning-text
+    .progress-bar-success
+      color: $state-success-text
+
+  .progress.active .progress-bar, .progress-bar.active
+    animation-direction: reverse
+    animation-duratiion: 1.5s
+
+    // text-shadow: 1px 4px 6px #def, 0 0 0 #000, 1px 4px 6px #def;
+    // Don't show shadows when selecting text
+    ::-moz-selection
+      text-shadow: none
+    ::selection
+      text-shadow: none
+
+table.dataTable thead > tr > th,
+table.dataTable tbody > tr > td
+  vertical-align: middle
+
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc
+  &::after
+    display: inline
+    margin-left: 0.5em
+    position: relative
+    top: 0
+    right: 0
+
+
+.label + .label
+  margin-left: $padding-base-horizontal

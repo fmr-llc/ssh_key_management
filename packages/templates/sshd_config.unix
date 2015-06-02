@@ -1,0 +1,15 @@
+ChallengeResponseAuthentication no
+UsePAM yes
+SyslogFacility AUTHPRIV
+LogLevel INFO
+GssapiAuthentication yes
+GssapiCleanUpCredentials yes
+Protocol 2
+PermitRootLogin without-password
+PasswordAuthentication yes
+X11Forwarding yes
+Banner /etc/issue
+Subsystem sftp internal-sftp
+
+AuthorizedKeysCommand /etc/ssh/authorized_keys.sh
+AuthorizedKeysCommandUser _sshkeys

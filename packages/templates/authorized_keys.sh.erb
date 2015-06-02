@@ -1,0 +1,19 @@
+#!/bin/sh
+AUTHORIZED_KEYS_URL="<%= @authorized_keys_url.chomp('/') %>"
+FQDN="$(hostname --fqdn | tr '[:upper:]' '[:lower:]')"
+USERNAME="$(echo $1 | tr '[:upper:]' '[:lower:]')"
+CACHE="/etc/ssh/cache"
+WGET_OPTS="<%= ENV['WGET_OPTS'] %>"
+TRIGGER_FILE="/etc/ssh/DISABLE_USER_AUTHORIZED_KEYS"
+
+if wget ${WGET_OPTS} "${AUTHORIZED_KEYS_URL}/${USERNAME}/${FQDN}" -qO "${CACHE}/tmp/${USERNAME}"; then
+    [[ -f "${CACHE}/authorized_keys/${USERNAME}" ]] && mv "${CACHE}/authorized_keys/${USERNAME}" "${CACHE}/authorized_keys/${USERNAME}.previous"
+    mv "${CACHE}/tmp/${USERNAME}" "${CACHE}/authorized_keys/${USERNAME}"
+fi;
+
+if [[ $USERNAME != 'root' ]] && [[ -f $TRIGGER_FILE ]]; then
+    USER_HOME=$(getent passwd $USERNAME | cut -d: -f6)
+    cat "$USER_HOME/.ssh/authorized_keys" "$USER_HOME/.ssh//authorized_keys2" 2>/dev/null
+fi
+
+cat "${CACHE}/authorized_keys/${USERNAME}"

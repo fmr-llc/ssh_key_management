@@ -1,0 +1,47 @@
+## Authorizations
+# Uncomment out the merging for each environment that you'd like to include.
+# You can also just copy and paste the tree (do not include the "authorizations") to each
+# environment if you need something different per enviornment.
+authorizations: &AUTHORIZATIONS
+  group_base: <%= ENV["LDAP_GROUP_BASE"] %>
+  ## Requires config.ldap_check_group_membership in devise.rb be true
+  # Can have multiple values, must match all to be authorized
+  required_groups:
+    # If only a group name is given, membership will be checked against "uniqueMember"
+    - cn=admins,ou=groups,dc=test,dc=com
+    - cn=users,ou=groups,dc=test,dc=com
+    # If an array is given, the first element will be the attribute to check against, the second the group name
+    - ["moreMembers", "cn=users,ou=groups,dc=test,dc=com"]
+  ## Requires config.ldap_check_attributes in devise.rb to be true
+  ## Can have multiple attributes and values, must match all to be authorized
+  require_attribute:
+    objectClass: inetOrgPerson
+    authorizationRole: postsAdmin
+
+defaults: &DEFAULTS
+  host: <%= ENV["LDAP_SERVER"] %>
+  port: <%= ENV["LDAP_PORT"] %>
+  attribute: uid
+  base: <%= ENV["LDAP_BASE"] %>
+  ssl: simple_tls
+
+## Environment
+
+development:
+  <<: *DEFAULTS
+  # <<: *AUTHORIZATIONS
+
+test:
+  <<: *DEFAULTS
+  admin_user:
+  admin_password:
+  # <<: *AUTHORIZATIONS
+
+staging:
+  <<: *DEFAULTS
+
+production:
+  <<: *DEFAULTS
+  admin_user:
+  admin_password:
+  # <<: *AUTHORIZATIONS

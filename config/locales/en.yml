@@ -1,0 +1,35 @@
+en:
+  activerecord:
+    attributes:
+      user:
+        login: Corp ID
+        password: LAN Password
+      credential:
+        tag_list: Tags
+        host:
+          one: Host
+          other: Hosts
+    values:
+      credential:
+        host:
+          blank: ANY
+    models:
+      credential:
+        one: Credential
+        other: Credentials
+  credential_with_count:
+    one: 1 Credential
+    other: '%{count} Credentials'
+  helpers:
+    labels:
+      actions: Actions
+      all: All
+    links:
+      show: View
+      edit: Edit
+      destroy: Delete
+    tag_list_help_html: "Press <kbd>tab</kbd>, <kbd>enter</kbd> or <kbd>comma</kbd> to create a tag"
+    submit:
+      saving: "Saving %{model}"
+      credential:
+        create: "Add a New %{model}"

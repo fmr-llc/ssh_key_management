@@ -1,0 +1,108 @@
+// Variables
+$padding-md: 3.5rem
+$padding-base: 2rem
+$padding-sm: 1rem
+$padding-xs: 0.5rem
+
+$border-radius-base: 3px
+
+$gray-light: #cccccc
+$gray: #888888
+$gray-dark: #666666
+$gray-darker: #444444
+
+$form-base-color: $gray-light
+$form-icon-size: 28px
+$form-line-height: 28px
+
+$checkbox-checked: rgba(green, 0.5)
+$radio-selected: rgba(teal, 0.5)
+
+label
+  display: block
+  position: relative
+  padding: $padding-xs $padding-sm
+  line-height: $form-line-height
+  font-weight: normal
+  cursor: pointer
+  // Remove annoying highlight color on mobile
+  -webkit-tap-highlight-color: transparent
+  &:last-of-type
+    margin-right: $padding-sm
+  div
+    display: inline-block
+    height: 25px
+    position: relative
+    top: 6px
+    font-style: normal
+    color: $form-base-color
+  span
+    display: inline-block
+    margin-left: 5px
+    line-height: 25px
+    color: darken($form-base-color, 30%)
+
+input[type="radio"],
+input[type="checkbox"]
+  display: none
+  + div:before
+    font-family: 'FontAwesome'
+    font-size: $form-icon-size
+    height: 25px
+    width: 25px
+    display: inline-block
+  &:checked + div
+    position: relative
+    +animation(icon-beat 0.1s ease)
+    + span
+      +transition(all 0.1s ease)
+
+input[type="radio"]
+  // Circle Blank
+  + i:before
+    content: "\f10c"
+  // Circle
+  &:checked + i
+    &:before
+      content: "\f111"
+    + span,&:before
+      color: $radio-selected
+
+input[type="checkbox"]
+  // check-empty
+  + div:before
+    content: "\f096"
+  // checked
+  &:checked + div
+    &:before
+      content: "\f046"
+    + span,&:before
+      color: $checkbox-checked
+
+.form-horizontal,.form-vertical
+  padding: $padding-base
+  margin: $padding-sm
+  float: left
+  clear: both
+  border-radius: $border-radius-base
+  box-shadow: 0 1px 4px rgba(black, 0.25)
+
+.form-horizontal
+  h2
+    margin-bottom: $padding-xs
+  label
+    float: left
+    &:first-of-type
+      padding-left: 0
+  &:after,&:before
+    display: table
+    content: " "
+  &:after
+    clear: both
+
+.form-vertical
+  label
+    float: none
+    padding-left: 0
+    &:first-of-type
+      padding-top: $padding-sm

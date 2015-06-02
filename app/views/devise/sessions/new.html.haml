@@ -1,0 +1,13 @@
+.page-header
+  %h1 Login
+.row
+  .col-lg-4.col-lg-offset-4.col-md-6.col-md-offset-3.col-sm-8.col-sm-offset-2
+    = render layout: 'panel', locals: { id: 'login-panel', title: 'Please Authenticate', type: 'default' } do
+      = bootstrap_form_for resource, as: resource_name, url: session_path(resource_name) do |f|
+        = f.text_field :login, autofocus: true, icon: 'user'
+        = f.password_field :password, label_class: :required, autocomplete: 'off', icon: 'lock'
+        - if devise_mapping.rememberable?
+          = f.form_group :remember_me do
+            = f.check_box :remember_me
+        .actions
+          = f.primary 'Log in'

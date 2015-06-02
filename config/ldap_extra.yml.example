@@ -1,0 +1,43 @@
+attributes:
+ - cn
+ - company
+ - destinationindicator
+ - displayname
+ - distinguishedname
+ - dn
+ - exchangealias
+ - exchangedirectory
+ - exchangeserver
+ - givenname
+ - instancetype
+ - mail
+ - manager
+ - managerid
+ - managername
+ - memberof
+ - middlename
+ - name
+ - objectcategory
+ - objectclass
+ - objectguid
+ - objectsid
+ - othercertmailbox
+ - othertelephone
+ - physicaldeliveryofficename
+ - pwdlastset
+ - samaccountname
+ - sametimeserver
+ - sn
+ - st
+ - telephonenumber
+ - title
+ - userprincipalname
+ - usnchanged
+ - usncreated
+ - whenchanged
+ - whencreated
+
+alias_attributes:
+ first_name: givenname
+ last_name: sn
+ email: mail

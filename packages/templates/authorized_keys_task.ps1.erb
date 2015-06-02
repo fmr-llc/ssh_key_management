@@ -1,0 +1,27 @@
+$authorized_keys_url = "<%= @authorized_keys_url.chomp('/') %>"
+$hostname  = "$env:computername.$env:userdnsdomain".ToLower()
+$usernames = Get-ChildItem "C:\Users" | Where-Object {$_.PSIsContainer} | Foreach-Object {$_.Name}
+$reserved  = @('Administrator', 'ADMINI~1', 'Guest', 'Default', 'Public')
+$usernames = $usernames | where {$reserved -notcontains $_}
+
+foreach ($username in $usernames) {
+    $user_url = "$authorized_keys_url/$username/$hostname" + "?format=text"
+    $ssh_dir = "C:\Users\$username\.ssh\"
+    $authorized_keys_file = $ssh_dir + "authorized_keys"
+
+    New-Item -ItemType Directory -Force -Path $ssh_dir
+    try {
+        Invoke-RestMethod $user_url.ToLower() -timeoutSec 10 -OutFile $authorized_keys_file
+        if (Test-Path $authorized_keys_file) {
+            if (Get-Content $authorized_keys_file -Delimiter "`0" | Select-String "[^`r]`n") {
+                $content = Get-Content $authorized_keys_file
+                $content | Set-Content $authorized_keys_file
+            }
+            Get-Acl -Path "C:\Users\$username" | Set-Acl -Path $ssh_dir
+            Get-Acl -Path "C:\Users\$username" | Set-Acl -Path $authorized_keys_file
+        }
+    } catch {
+        New-EventLog -LogName Application -Source "SSHKM"
+        Write-Eventlog -LogName Application -Source "SSHKM" -EntryType Error -EventId 1 -Message "Authorized keys fetch failed for $username"
+    }
+}

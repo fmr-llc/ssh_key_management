@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+AUTHORIZED_KEYS_URL="<%= @authorized_keys_url.chomp('/') %>"
+FQDN="$(hostname --fqdn | tr '[:upper:]' '[:lower:]')"
+WGET_OPTS="<%= ENV['WGET_OPTS'] %>"
+
+# remove anyone with /sbin/nologin as their shell
+ENTRIES=`getent passwd |grep -v nologin`
+
+IFS=$'\n' read -rd '' -a USERS <<< "${ENTRIES}"
+# only get valid homedirs
+
+for user in "${USERS[@]}"
+do
+    IFS=':' read -a user <<< "$fields"
+    # field 1 => username
+    # field 6 => homedir
+    homedir=${fields[6]}
+    if [ -d $homedir ]; then
+      # get authorized_keys into homedir
+      username="$(echo ${fields[1]} | tr '[:upper:]' '[:lower:]')"
+      if wget ${WGET_OPTS} "${AUTHORIZED_KEYS_URL}/${username}/${FQDN}" -qO "/tmp/${username}.keys"; then
+        mkdir "${homedir}/.ssh/"
+        mv "/tmp/${username}.keys" "${homedir}/.ssh/authorized_keys2"
+        chown --reference=$homedir "${homedir}/.ssh/"
+        chown --reference=$homedir "${homedir}/.ssh/authorized_keys2"
+        chmod 700 "${homedir}/.ssh"
+        chmod 600 "${homedir}/.ssh/authorized_keys2"
+      fi
+    fi
+done

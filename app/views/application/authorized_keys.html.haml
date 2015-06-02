@@ -1,0 +1,7 @@
+.row
+  %span # --- #{ Rails.env } mode /
+  %span cache: #{ @cached ? 'hit' : 'miss' } /
+  %span response: #{ Time.zone.now - @start_time }s /
+  %span keys: #{ @authorized_keys.count }
+- @authorized_keys.each do |key|
+  .row= key

@@ -1,0 +1,16 @@
+inherit_from: ../.rubocop.yml
+
+StringLiterals:
+  Enabled: false
+
+ClassAndModuleChildren:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/LineLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
