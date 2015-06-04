@@ -1,18 +1,19 @@
 default: &default
   encoding: utf8
   pool: 5
+  adapter: sqlite3
+  database: db/development.sqlite3
 
 development:
   <<: *default
   timeout: 5000
-  adapter: sqlite3
-  database: db/development.sqlite3
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
+  database_url: <%= ENV['REMOTE_TEST'] ? ENV['REMOTE_DATABASE_URL'] :  ENV['LOCAL_DATABASE_URL'] %>
 edge:
   <<: *default
 stable:

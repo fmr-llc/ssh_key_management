@@ -1,10 +1,9 @@
 # local instance variable @ldap_entry holds all the LDAP attributes
 module UserLDAP
-
   LDAP_EXTRA = YAML.load_file Rails.root.join 'config', 'ldap_extra.yml'
-  LDAP_EXTRA['alias_attributes'].each { |attr| alias_attribute *attr.map(&:intern) }
+  LDAP_EXTRA['alias_attributes'].each { |attr| alias_attribute(*attr.map(&:intern)) }
 
-  attr_accessor *LDAP_EXTRA['attributes']
+  attr_accessor(*LDAP_EXTRA['attributes'])
 
   # loop to set all instance vars for LDAP attributes
   LDAP_EXTRA['attributes'].each do |attr|
@@ -26,7 +25,7 @@ module UserLDAP
 
   def reload
     super
-    LDAP_EXTRA['attributes'].each {|attr| instance_variable_set("@#{attr}", nil) }
+    LDAP_EXTRA['attributes'].each { |attr| instance_variable_set("@#{attr}", nil) }
     ldap_entry
     nil
   end

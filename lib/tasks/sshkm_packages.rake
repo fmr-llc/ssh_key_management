@@ -7,11 +7,14 @@ TEMPLATE_DIR = Rails.root + 'packages' + 'templates'
 WORKING_DIR = Rails.root + 'packages' + 'working'
 OUTPUT_DIR = Rails.root + 'packages' + 'built'
 
-AUTHORIZED_KEYS_SSHD_SH = WORKING_DIR + 'authorized_keys.sh'
-AUTHORIZED_KEYS_CRON_SH = WORKING_DIR + 'authorized_keys_cron.sh'
+AUTHORIZED_KEYS_SSHD_SH  = WORKING_DIR + 'authorized_keys.sh'
+REGISTER_HOST_SH         = WORKING_DIR + 'register_host.sh'
+
+AUTHORIZED_KEYS_CRON_SH  = WORKING_DIR + 'authorized_keys_cron.sh'
 AUTHORIZED_KEYS_TASK_PS1 = WORKING_DIR + 'authorized_keys_task.ps1'
-PACKAGE_INSTALL_SH = WORKING_DIR + 'post_install.sh'
-PACKAGE_UNINSTALL_SH = WORKING_DIR + 'post_uninstall.sh'
+
+PACKAGE_INSTALL_SH       = WORKING_DIR + 'post_install.sh'
+PACKAGE_UNINSTALL_SH     = WORKING_DIR + 'post_uninstall.sh'
 
 AUTHORIZED_KEYS_WIX = WORKING_DIR + 'authorized_keys'
 
@@ -28,6 +31,15 @@ namespace :sshkm_packages do
       raise "! Error in building #{AUTHORIZED_KEYS_SSHD_SH}" unless File.exist?(AUTHORIZED_KEYS_SSHD_SH)
     end
 
+    desc 'Build register_host.sh script'
+    task register_host_script: :setup do
+      puts 'Building register_host.sh script'
+      template = TEMPLATE_DIR + 'register_host.sh.erb'
+      File.open(REGISTER_HOST_SH, 'w') {|file| file.write ERB.new(template.read).result }
+      File.chmod 0644, REGISTER_HOST_SH
+      raise "! Error in building #{REGISTER_HOST_SH}" unless File.exist?(REGISTER_HOST_SH)
+    end
+
     desc 'Build cron script'
     task cron_script: :setup do
       puts 'Building cron script'
@@ -38,7 +50,7 @@ namespace :sshkm_packages do
     end
 
     desc 'Build rpm package'
-    task rpm: [:cron_script, :authorized_keys_script] do
+    task rpm: [:cron_script, :authorized_keys_script, :register_host_script] do
       puts 'Building rpm package for RedHat/Enterprise Linux/CentOS'
       FileUtils.copy TEMPLATE_DIR + 'sshd_config.rhel6', WORKING_DIR
       FileUtils.copy TEMPLATE_DIR + 'sshd_config.unix', WORKING_DIR
@@ -50,7 +62,7 @@ namespace :sshkm_packages do
     end
 
     desc 'Build Ubuntu deb package'
-    task deb: :authorized_keys_script do
+    task deb: [:authorized_keys_script, :register_host_script] do
       puts 'Building deb package for Debian/Ubuntu'
       FileUtils.copy TEMPLATE_DIR + 'sshd_config.unix', WORKING_DIR
       FileUtils.copy TEMPLATE_DIR + 'post_install_deb.sh', PACKAGE_INSTALL_SH
@@ -117,6 +129,7 @@ namespace :sshkm_packages do
     puts 'Setting up build environment'
     default_url_options[:host] = ENV['KEYSERVER_URL']
     @authorized_keys_url = authorized_keys_url('')
+    @register_host_url = register_host_url('')
     @options = {
       name: Rails.application.class.parent_name,
       version: Versioning::VERSION.to_s,

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+REGISTER_HOST_URL="<%= @register_host_url.chomp('/') %>"
+FQDN="$(hostname --fqdn | tr '[:upper:]' '[:lower:]')"
+WGET_OPTS="<%= ENV['WGET_OPTS'] %>"
+
+if wget ${WGET_OPTS} --post-file=/etc/ssh/sshkm.json --header=Content-Type:application/json "${REGISTER_HOST_URL}/${FQDN}" -qO-; then
+  echo "SUCCESS"
+else
+  echo "FAILURE $?"
+fi

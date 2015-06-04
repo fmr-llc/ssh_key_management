@@ -10,3 +10,5 @@ else
     service sshd restart
     userdel -r _sshkeys
 fi
+
+rm /etc/rc.d/rc3.d/S99RegisterHostWithSSHKM

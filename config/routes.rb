@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   controller :application do
     get '/authorized_keys/:username(/:host)' => :authorized_keys, host: %r{[^\/]+}, as: :authorized_keys
+    post '/register/:host' => :register_host, host: %r{[^\/]+}, as: :register_host
     get '/x-tree/F5Monitor' => :f5_health_check, defaults: { format: :html } if ENV['F5_HEALTHCHECK']
   end
 

@@ -100,13 +100,15 @@ class ApplicationControllerTest < ActionController::TestCase
       get :authorized_keys, username: @credential.username, host: @credential.host
       assert_equal false, assigns(:cached)
       assert_equal 2, assigns(:authorized_keys).length
-      assert_equal [@credential.public_key, @credential2.public_key], assigns(:authorized_keys)
+      assert_includes assigns(:authorized_keys), @credential.public_key
+      assert_includes assigns(:authorized_keys), @credential2.public_key
     end
     with_caching do
       get :authorized_keys, username: @credential.username, host: @credential.host
       assert_equal true, assigns(:cached)
       assert_equal 2, assigns(:authorized_keys).length
-      assert_equal [@credential.public_key, @credential2.public_key], assigns(:authorized_keys)
+      assert_includes assigns(:authorized_keys), @credential.public_key
+      assert_includes assigns(:authorized_keys), @credential2.public_key
     end
   end
 
@@ -123,13 +125,15 @@ class ApplicationControllerTest < ActionController::TestCase
       get :authorized_keys, username: @credential.username, host: @credential.host
       assert_equal false, assigns(:cached)
       assert_equal 2, assigns(:authorized_keys).length
-      assert_equal [@credential.public_key, @credential2.public_key], assigns(:authorized_keys)
+      assert_includes assigns(:authorized_keys), @credential.public_key
+      assert_includes assigns(:authorized_keys), @credential2.public_key
     end
     with_caching do
       get :authorized_keys, username: @credential.username, host: @credential.host
       assert_equal true, assigns(:cached)
       assert_equal 2, assigns(:authorized_keys).length
-      assert_equal [@credential.public_key, @credential2.public_key], assigns(:authorized_keys)
+      assert_includes assigns(:authorized_keys), @credential.public_key
+      assert_includes assigns(:authorized_keys), @credential2.public_key
     end
   end
 
@@ -137,5 +141,49 @@ class ApplicationControllerTest < ActionController::TestCase
     sign_out @user
     get :authorized_keys, username: 'weirdoname', host: 'weirdohost'
     assert_empty assigns(:authorized_keys)
+  end
+
+  test "host should register without tags" do
+    sign_out @user
+    assert_difference('Host.count') do
+      post :register_host, host: 'this.is.an.example.com'
+      assert_response 200
+    end
+    assert_no_difference('Host.count') do
+      post :register_host, host: 'this.is.an.example.com'
+      assert_response 200
+    end
+  end
+
+  test "host should register with tags" do
+    sign_out @user
+    taggings = { environment: %w(Testing Testing2), manager: 'Chef' }
+    @request.env["RAW_POST_DATA"] = taggings.to_json
+    assert_difference('Host.count') do
+      post :register_host, host: 'this.is.another.example.com'
+      assert_response 200
+    end
+    assert_equal 1, Host.where(fqdn: 'this.is.another.example.com').count
+    taggings.each do |context, tags|
+      assert_equal 1, Host.tagged_with(tags, on: context).count
+    end
+  end
+
+  test "host should register with replacement tags" do
+    sign_out @user
+    taggings = { environment: %w(Testing Testing2), manager: 'Chef' }
+    @request.env["RAW_POST_DATA"] = taggings.to_json
+    post :register_host, host: 'this.is.another.example.com'
+
+    new_taggings = { Environments: %w(Production Stable) }
+    @request.env["RAW_POST_DATA"] = new_taggings.to_json
+    post :register_host, host: 'this.is.another.example.com'
+
+    new_taggings.each do |context, tags|
+      assert_equal 1, Host.tagged_with(tags, on: context).count
+    end
+    taggings.each do |context, tags|
+      assert_equal 0, Host.tagged_with(tags, on: context).count
+    end
   end
 end

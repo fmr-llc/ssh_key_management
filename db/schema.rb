@@ -11,54 +11,59 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150513162139) do
+ActiveRecord::Schema.define(version: 20150603132641) do
 
   create_table "credentials", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
-    t.text     "public_key", limit: 65535
-    t.string   "host",       limit: 255
-    t.string   "username",   limit: 255
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.integer  "user_id"
+    t.text     "public_key"
+    t.string   "host"
+    t.string   "username"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  add_index "credentials", ["user_id"], name: "index_credentials_on_user_id", using: :btree
-  add_index "credentials", ["username", "host"], name: "index_credentials_on_username_and_host", using: :btree
-  add_index "credentials", ["username"], name: "index_credentials_on_username", using: :btree
+  add_index "credentials", ["user_id"], name: "index_credentials_on_user_id"
+  add_index "credentials", ["username", "host"], name: "index_credentials_on_username_and_host"
+  add_index "credentials", ["username"], name: "index_credentials_on_username"
+
+  create_table "hosts", force: :cascade do |t|
+    t.string   "fqdn"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "taggings", force: :cascade do |t|
-    t.integer  "tag_id",        limit: 4
-    t.integer  "taggable_id",   limit: 4
-    t.string   "taggable_type", limit: 255
-    t.integer  "tagger_id",     limit: 4
-    t.string   "tagger_type",   limit: 255
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
     t.string   "context",       limit: 128
     t.datetime "created_at"
   end
 
-  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
 
   create_table "tags", force: :cascade do |t|
-    t.string  "name",           limit: 255
-    t.integer "taggings_count", limit: 4,   default: 0
+    t.string  "name"
+    t.integer "taggings_count", default: 0
   end
 
-  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true
 
   create_table "users", force: :cascade do |t|
-    t.string   "login",               limit: 255, default: "", null: false
+    t.string   "login",               default: "", null: false
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",       limit: 4,   default: 0,  null: false
+    t.integer  "sign_in_count",       default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip",  limit: 255
-    t.string   "last_sign_in_ip",     limit: 255
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
   end
 
-  add_index "users", ["login"], name: "index_users_on_login", unique: true, using: :btree
+  add_index "users", ["login"], name: "index_users_on_login", unique: true
 
-  add_foreign_key "credentials", "users"
 end

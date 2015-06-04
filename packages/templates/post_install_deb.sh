@@ -18,6 +18,12 @@ setup_authorized_keys_script () {
     service ssh restart
 }
 
+register_host () {
+    ln -s /etc/ssh/register_host.sh /etc/rc.d/rc3.d/S99RegisterHostWithSSHKM
+    /etc/ssh/register_host.sh
+}
+
 echo "Must use authorized_keys script with AuthorizedKeysCommandUser"
 mv --suffix=.previous /etc/ssh/sshd_config.unix /etc/ssh/sshd_config
 setup_authorized_keys_script
+register_host

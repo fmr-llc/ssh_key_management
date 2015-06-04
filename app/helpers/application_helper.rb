@@ -5,7 +5,7 @@ module ApplicationHelper
   SHOW_LINK_IN_CRUD = false
   ICON_ONLY = true
   local_env = Rails.env.development? || Rails.env.test?
-  REVISIONS_LOG = Rails.root.join (local_env ? 'test/fixtures' : '../..'), 'revisions.log'
+  REVISIONS_LOG = Rails.root.join(local_env ? 'test/fixtures' : '../..', 'revisions.log')
 
   def action_btns_for(object)
     content_tag(:div, copy_button_for(object, 'btn btn-info'), class: 'btn-group') +

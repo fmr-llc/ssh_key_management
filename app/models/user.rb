@@ -1,4 +1,4 @@
-  require 'user_ldap'
+require 'user_ldap'
 # Devise based User model that pulls info from LDAP based on UID attribute
 class User < ActiveRecord::Base
   devise :ldap_authenticatable, :rememberable, :trackable, :timeoutable

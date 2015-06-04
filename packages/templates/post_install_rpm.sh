@@ -25,6 +25,11 @@ setup_authorized_keys_script () {
     service sshd restart
 }
 
+register_host () {
+    ln -s /etc/ssh/register_host.sh /etc/rc.d/rc3.d/S99RegisterHostWithSSHKM
+    /etc/ssh/register_host.sh
+}
+
 if [[ "$SSH_VERSION" < "$RUNAS_VERSION" ]]; then
     echo "Must use cron method (~/.ssh/authorized_keys2)"
     rm /etc/sshd_config.unix rm /etc/sshd_config.rhel6 /etc/authorized_keys.sh
@@ -40,3 +45,5 @@ else
     mv --suffix=.previous /etc/ssh/sshd_config.unix /etc/ssh/sshd_config
     setup_authorized_keys_script
 fi
+
+register_host

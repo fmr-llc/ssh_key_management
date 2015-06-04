@@ -4,7 +4,7 @@ FactoryGirl.define do
       first_name "Alice"
       factory :alice_with_credentials do
         transient do
-         credentials_count 5
+          credentials_count 5
         end
 
         after(:create) do |user, evaluator|
